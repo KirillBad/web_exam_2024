@@ -2,59 +2,39 @@
 <form method="POST" enctype="multipart/form-data">
   <div class="container d-flex flex-column align-items-stretch justify-content-center w-75">
     <div class="form-floating my-2">
-      <input type="text" class="form-control" id="title" name="title" placeholder="Название книги">
+      <input type="text" class="form-control" id="title" name="title" placeholder="Название книги" value="{{ book.title }}">
       <label for="floatingInput">
-        {% if book.title %}
-          {{ book.title }}
-        {% else %}
-          Название книги
-        {% endif %}
+          Название
       </label>
     </div>
     <select class="form-select mb-2" multiple aria-label="Multiple select example" name="style">
       {% for style in styles %}
-      <option value="{{ style.id }}"> {{ style.style_name }} </option>
+        <option value="{{ style.id }}" {% if style in book.styles %}selected{% endif %}> {{ style.style_name }}</option>
       {% endfor %}
     </select>
     <textarea name="short_description"></textarea>
     <div class="form-floating mb-2">
-      <input type="number" class="form-control" id="year" name="year" placeholder="Год выпуска" required min="1" max="9999">
+      <input type="number" class="form-control" id="year" name="year" placeholder="Год выпуска" required min="1" max="9999" value="{{ book.year }}">
       <label for="floatingInput">
-        {% if book.year %}
-          {{ book.year }}
-        {% else %}
           Год выпуска
-        {% endif %}
       </label>
     </div>
     <div class="form-floating mb-2">
-      <input type="text" class="form-control" id="publisher" name="publisher" placeholder="Издатель">
+      <input type="text" class="form-control" id="publisher" name="publisher" placeholder="Издатель" value="{{ book.publisher }}">
       <label for="floatingInput">
-        {% if book.publisher %}
-          {{ book.publisher }}
-        {% else %}
           Издатель
-        {% endif %}
       </label>
     </div>
     <div class="form-floating mb-2">
-      <input type="text" class="form-control" id="author" name="author" placeholder="Автор">
+      <input type="text" class="form-control" id="author" name="author" placeholder="Автор" value="{{ book.author }}">
       <label for="floatingInput">
-        {% if book.author %}
-          {{ book.author }}
-        {% else %}
           Автор
-        {% endif %}
       </label>
     </div>
     <div class="form-floating mb-2">
-      <input type="number" class="form-control" id="pages" name="pages" placeholder="Количество страниц" required min="1" max="9999">
+      <input type="number" class="form-control" id="pages" name="pages" placeholder="Количество страниц" required min="1" max="9999" value="{{ book.pages }}">
       <label for="floatingInput">
-        {% if book.pages %}
-          {{ book.pages }}
-        {% else %}
           Количество страниц
-        {% endif %}
       </label>
     </div>
     {% if not book%}
@@ -70,7 +50,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
 <script>
   const easyMDE = new EasyMDE()
-  easyMDE.value("{{ book.short_description if book.short_description else 'Краткое описание' }}")
-  console.log(easyMDE.value())
+  easyMDE.value(`{{ book.short_description | safe if book.short_description else 'Краткое описание' }}`)
 </script>
 {% endmacro %}

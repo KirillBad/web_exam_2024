@@ -13,7 +13,8 @@ def login():
         password = request.form.get('password')
         remember_me = request.form.get('remember_me')
 
-        user = User.query.filter_by(login=login).first()
+        user = db.session.scalars(db.select(User).where(User.login == login)).one_or_none()
+        print(user)
         if user:
             if check_password_hash(user.password_hash, password):
                 flash("Успешная авторизация", category="success")
@@ -21,7 +22,7 @@ def login():
                     login_user(user, remember=True)
                 else:
                     login_user(user)
-                return redirect(url_for('views.home_page', user=current_user))
+                return redirect(url_for('views.home_page'))
             else:
                 flash("Невозможно аутентифицироваться с указанными логином и паролем", category="error")
         else:
@@ -33,4 +34,4 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('views.home_page'))
