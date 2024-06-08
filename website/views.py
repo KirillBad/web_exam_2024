@@ -56,6 +56,7 @@ def commit_book_data(request, id=None):
             except Exception as e:
                 db.session.rollback()
                 flash("При сохранении данных возникла ошибка. Проверьте корректность введённых данных.", category="error")   
+                return redirect(request.url)
     else:
         book = Book.query.get_or_404(id)
         book.title = request.form.get('title')
@@ -69,7 +70,8 @@ def commit_book_data(request, id=None):
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            flash(f'Error occured: {e}', category='error')         
+            flash("При сохранении данных возникла ошибка. Проверьте корректность введённых данных.", category="error")   
+            return redirect(request.url)      
 
 @views.route('/')
 def home_page():
