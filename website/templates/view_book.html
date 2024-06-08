@@ -27,7 +27,7 @@
       </h5>
       <div class="card-body">
         <h5 class="card-title">Oценка - {{ review.score }}</h5>
-        <p class="card-text">{{ review.text | safe }}</p>
+        <p class="card-text">{{ review.text.replace('\n', '<br>') | safe }}</p>
       </div>
     </div>
   {% endfor %}

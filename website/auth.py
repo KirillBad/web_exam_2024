@@ -18,10 +18,10 @@ def login():
         if user:
             if check_password_hash(user.password_hash, password):
                 flash("Успешная авторизация", category="success")
-                if remember_me:
-                    login_user(user, remember=True)
-                else:
+                if remember_me is None:
                     login_user(user)
+                else:
+                    login_user(user, remember=True)
                 return redirect(url_for('views.home_page'))
             else:
                 flash("Невозможно аутентифицироваться с указанными логином и паролем", category="error")
