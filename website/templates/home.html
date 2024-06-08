@@ -20,7 +20,7 @@
             <li class="list-group-item">Год издания - {{ book.year }}</li>
             <li class="list-group-item"> 
               {% if book.reviews %}
-                Средняя оценка - {{ (book.reviews | map(attribute='score') | sum) / (book.reviews | length) }}
+                Средняя оценка - {{ ((book.reviews | map(attribute='score') | sum) / (book.reviews | length)) | round(2)}}
               {% else %}
                 Нет оценок
               {% endif %}

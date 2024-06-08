@@ -32,7 +32,7 @@
     </div>
   {% endfor %}
   {% if not user_reviewed %}
-    <a href="{{ url_for('views.add_review', id=book.id) }}" class="btn btn-primary" id="add_review">Написать рецензию <i class="bi bi-pencil-square"></i></a>
+    <a href="{{ url_for('views.add_review', id=book.id) }}" class="btn btn-primary mb-3" id="add_review">Написать рецензию <i class="bi bi-pencil-square"></i></a>
   {% endif %}
 </div>
 {% endblock %}

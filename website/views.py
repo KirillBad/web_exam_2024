@@ -129,6 +129,7 @@ def edit_book(id):
         return render_template("edit_book.html", user=current_user, book=book, styles=styles)
 
 @views.route('/delete_book/<id>', methods=['GET', 'POST'])
+@decorators.role_required('admin')
 def delete_book(id):
     book = Book.query.get_or_404(id)
 
