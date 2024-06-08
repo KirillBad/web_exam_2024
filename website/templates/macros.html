@@ -50,6 +50,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
 <script>
   const easyMDE = new EasyMDE()
-  easyMDE.value(`{{ book.short_description | safe if book.short_description else 'Краткое описание' }}`)
+  easyMDE.value(`{{ book.short_description if book.short_description else 'Краткое описание' }}`)
 </script>
 {% endmacro %}

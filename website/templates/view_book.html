@@ -11,7 +11,7 @@
         <div class="card-body">
           <h1 class="card-title"> {{ book.title }} </h1>
           <h3 class="card-title"> {{ book.author }} </h3>
-          <p class="card-text">  {{ book.short_description | safe }} </p>
+          <p class="card-text">  {{ book.short_description.replace('\n', '<br>') | safe }} </p>
           <p class="card-text"><strong>Жанр</strong> : {% for style in book.styles %} {{ style.style_name }} {% endfor %}</p>
           <p class="card-text"><strong>Год издания</strong> : {{ book.year }}</p>
           <p class="card-text"><strong>Издатель</strong> : {{ book.publisher }}</p>
