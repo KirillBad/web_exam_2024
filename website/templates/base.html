@@ -10,7 +10,7 @@
   <body class="bg-dark-subtle">
     <nav class="navbar navbar-expand-lg sticky-top border-bottom bg-body-tertiary">
       <div class="container">
-        <a class="navbar-brand" href="#">Баденов 221-329</a>
+        <a class="navbar-brand" href="{{ url_for("views.home_page") }}">Баденов 221-329</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -20,11 +20,16 @@
             <span class="navbar-text me-3">
               {{ user.last_name }} {{ user.first_name[0] }}.{{ user.middle_name[0] }}.
             </span>
-            <a href="/logout" class="nav-item nav-link" id="logout">Выйти</a>
+              {% if user.role.name == "mod" %}
+                <a href="{{ url_for("views.moderating_reviews") }}" class="nav-item nav-link" id="moderating_reviews">Отзывы</a>
+              {% else %}
+                <a href="{{ url_for("views.my_reviews") }}" class="nav-item nav-link" id="my_reviews">Отзывы</a>
+              {% endif %}
             <a href="/" class="nav-item nav-link" id="home">Главная</a>
+            <a href="{{ url_for("auth.logout") }}" class="nav-item nav-link" id="logout">Выйти</a>
             {% else %}
-            <a href="/login" class="nav-item nav-link" id="login">Войти</a>
             <a href="/" class="nav-item nav-link" id="home">Главная</a>
+            <a href="{{ url_for("auth.login") }}" class="nav-item nav-link" id="login">Войти</a>
             {% endif %}
           </div>
         </div>
